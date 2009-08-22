@@ -13,6 +13,7 @@ import Data.Int
 import Data.Ratio
 import Data.ByteString hiding (head, pack)
 import Data.ByteString.Char8 hiding (foldl')
+import Data.ByteString.Internal
 import qualified Data.ByteString.Lazy.Char8 as Lazy
 import qualified Data.ByteString.Lazy.Internal as Lazy
 
@@ -102,7 +103,12 @@ hexalize                    ::  (Num n) => n -> Word8 -> n
  {-# SPECIALIZE INLINE hexalize :: Rational -> Word8 -> Rational            #-}
  {-# SPECIALIZE INLINE hexalize :: Integer -> Word8 -> Integer              #-}
  -}
-hexalize acc byte            =  acc * 0x10 + fromIntegral (byte - 0x30)
+hexalize acc byte            =  (acc * 0x10) + fromIntegral byte'
+ where
+  byte'
+    | byte >= c2w 'a'        =  byte - c2w 'a' 
+    | byte >= c2w 'A'        =  byte - c2w 'A' 
+    | otherwise              =  byte - c2w '0' 
 
 strict_hex bytes             =  foldl' hexalize 0 piece
  where
