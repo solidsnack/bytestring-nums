@@ -102,7 +102,7 @@ digitize                    ::  (Num n) => (n -> n -> n) -> n -> Word8 -> n
  {-# SPECIALIZE INLINE digitize :: Rational -> Word8 -> Rational            #-}
  {-# SPECIALIZE INLINE digitize :: Integer -> Word8 -> Integer              #-}
  -}
-digitize op acc byte         =  acc * 10 `op` fromIntegral (byte - 0x30)
+digitize op acc byte         =  (acc * 10) `op` fromIntegral (byte - 0x30)
 
 strict_int bytes             =  foldl' (digitize op) 0 piece
  where
