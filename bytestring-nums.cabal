@@ -1,0 +1,26 @@
+name                          : bytestring-nums
+version                       : 0.0.0
+category                      : Text
+license                       : BSD3
+license-file                  : LICENSE
+author                        : Jason Dusek
+maintainer                    : jason.dusek@gmail.com
+homepage                      : http://github.com/jsnx/bytestring-nums
+synopsis                      : Parse numeric literals from ByteStrings.
+description                   :
+  Parse numeric literals from ByteStrings.
+
+
+cabal-version                 : >= 1.2
+build-type                    : Simple
+extra-source-files            : README
+
+
+library
+  build-depends               : base 
+                              , containers
+                              , bytestring >= 0.9
+  exposed-modules             : Data.ByteString.Nums.Unsafe.Int
+                                Data.ByteString.Nums.Unsafe.Hex
+  extensions                  : MultiParamTypeClasses
+
