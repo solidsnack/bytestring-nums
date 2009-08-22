@@ -5,6 +5,7 @@ license                       : BSD3
 license-file                  : LICENSE
 author                        : Jason Dusek
 maintainer                    : jason.dusek@gmail.com
+stability                     : experimental
 homepage                      : http://github.com/jsnx/bytestring-nums
 synopsis                      : Parse numeric literals from ByteStrings.
 description                   :
