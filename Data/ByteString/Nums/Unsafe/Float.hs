@@ -1,28 +1,29 @@
 
 
 {-# LANGUAGE MultiParamTypeClasses
+           , ScopedTypeVariables
   #-}
 
 
 module Data.ByteString.Nums.Unsafe.Float where
 
 
-import Prelude hiding (head, tail, drop)
-import Data.Word
-import Data.Int
-import Data.Ratio
-import Data.ByteString hiding (head, pack)
-import Data.ByteString.Char8 hiding (foldl')
-import Data.ByteString.Internal
+import Prelude hiding (length, splitAt)
+import Data.ByteString.Char8 hiding (inits, elem, last)
 import qualified Data.ByteString.Lazy.Char8 as Lazy
-import qualified Data.ByteString.Lazy.Internal as Lazy
+
+
+import Data.ByteString.Nums.Unsafe.Int
 
 
 
 
-{-| Types that can be read from hexadecimal strings.
+
+{-| Types that can be read from floating point strings. The fractional part is
+    taken to be the last group of digits behind a decimal point or comma.
+    Characters are not decimal digits are simply skipped.
  -}
-class (Fractional f) => Floatable b f where
+class (Intable b f, Fractional f) => Floatable b f where
   float                     ::  b -> f
 
 instance Floatable ByteString Float where
@@ -40,28 +41,20 @@ instance Floatable Lazy.ByteString Rational where
   float                      =  lazy_float
 
 
+strict_float bytes           =  case findIndices (`elem` ".,") bytes of
+  [ ]                       ->  int bytes
+  idx                       ->  hi' + (int lo * (0.1 ^ length lo) * s)
+   where
+    (hi, lo)                 =  splitAt (last idx) bytes
+    hi'                      =  int hi
+    s                        =  signum hi'
 
-
-floatize                    ::  (Fractional f) => f -> Word8 -> f
-{-
- {-# SPECIALIZE INLINE floatize :: Float -> Word8 -> Float                  #-}
- {-# SPECIALIZE INLINE floatize :: Double -> Word8 -> Double                #-}
- {-# SPECIALIZE INLINE floatize :: Rational -> Word8 -> Rational            #-}
- -}
-floatize op acc byte         =  (acc * 10) `op` fromIntegral (byte - 0x30)
-
-strict_float bytes           =  foldl' (floatize op) 0 piece
- where
-  (op, piece)
-    | head bytes == '-'      =  ((-), tail bytes)
-    | head bytes == '+'      =  ((+), tail bytes)
-    | otherwise              =  ((+), bytes)
-
-lazy_float bytes             =  Lazy.foldlChunks (foldl' (floatize op)) 0 piece
- where
-  (op, piece)
-    | Lazy.head bytes == '-' =  ((-), Lazy.tail bytes)
-    | Lazy.head bytes == '+' =  ((+), Lazy.tail bytes)
-    | otherwise              =  ((+), bytes)
+lazy_float bytes             =  case Lazy.findIndices (`elem` ".,") bytes of
+  [ ]                       ->  int bytes
+  idx                       ->  hi' + (int lo * (0.1 ^ Lazy.length lo) * s)
+   where
+    (hi, lo)                 =  Lazy.splitAt (last idx) bytes
+    hi'                      =  int hi
+    s                        =  signum hi'
 
 
