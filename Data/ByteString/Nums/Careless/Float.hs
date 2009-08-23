@@ -5,7 +5,7 @@
   #-}
 
 
-module Data.ByteString.Nums.Unsafe.Float where
+module Data.ByteString.Nums.Careless.Float where
 
 
 import Prelude hiding (length, splitAt)
@@ -13,7 +13,7 @@ import Data.ByteString.Char8 hiding (inits, elem, last)
 import qualified Data.ByteString.Lazy.Char8 as Lazy
 
 
-import Data.ByteString.Nums.Unsafe.Int
+import Data.ByteString.Nums.Careless.Int
 
 
 

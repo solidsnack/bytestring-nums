@@ -4,7 +4,7 @@
   #-}
 
 
-module Data.ByteString.Nums.Unsafe.Int where
+module Data.ByteString.Nums.Careless.Int where
 
 
 import Prelude hiding (head, tail, null)

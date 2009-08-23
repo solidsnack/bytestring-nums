@@ -4,7 +4,7 @@
   #-}
 
 
-module Data.ByteString.Nums.Unsafe.Hex where
+module Data.ByteString.Nums.Careless.Hex where
 
 
 import Prelude hiding (head, tail, drop)
