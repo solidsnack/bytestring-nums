@@ -1,7 +1,6 @@
 
 
 {-# LANGUAGE MultiParamTypeClasses
-           , ScopedTypeVariables
   #-}
 
 
