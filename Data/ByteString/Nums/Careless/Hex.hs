@@ -88,7 +88,6 @@ instance Hexable Lazy.ByteString Integer where
 
 
 hexalize                    ::  (Num n) => n -> Word8 -> n
-{-
 {-# SPECIALIZE INLINE           hexalize :: Word8 -> Word8 -> Word8        #-}
 {-# SPECIALIZE INLINE           hexalize :: Word16 -> Word8 -> Word16      #-}
 {-# SPECIALIZE INLINE           hexalize :: Word32 -> Word8 -> Word32      #-}
@@ -103,7 +102,6 @@ hexalize                    ::  (Num n) => n -> Word8 -> n
 {-# SPECIALIZE INLINE           hexalize :: Double -> Word8 -> Double      #-}
 {-# SPECIALIZE INLINE           hexalize :: Rational -> Word8 -> Rational  #-}
 {-# SPECIALIZE INLINE           hexalize :: Integer -> Word8 -> Integer    #-}
- -}
 hexalize acc byte
   | between byte 'a' 'f'     =  place_up (byte + 0x0a - c2w 'a')
   | between byte 'A' 'F'     =  place_up (byte + 0x0a - c2w 'A')

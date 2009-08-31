@@ -88,7 +88,6 @@ instance Intable Lazy.ByteString Integer where
 
 
 digitize                    ::  (Num n) => (n -> n -> n) -> n -> Word8 -> n
-{-
 {-# SPECIALIZE INLINE
 digitize :: (Word8 -> Word8 -> Word8) -> Word8 -> Word8 -> Word8
   #-}
@@ -131,7 +130,6 @@ digitize :: (Rational -> Rational -> Rational) -> Rational -> Word8 -> Rational
 {-# SPECIALIZE INLINE
 digitize :: (Integer -> Integer -> Integer) -> Integer -> Word8 -> Integer
   #-}
- -}
 digitize op acc byte
   | between byte '0' '9'     =  (acc * 10) `op` fromIntegral (byte - c2w '0')
   | otherwise                =  acc
