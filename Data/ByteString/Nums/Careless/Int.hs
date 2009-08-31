@@ -11,9 +11,9 @@ import Prelude hiding (head, tail, null)
 import Data.Word
 import Data.Int
 import Data.Ratio
-import Data.ByteString hiding (head)
+import Data.ByteString hiding (head, pack)
 import Data.ByteString.Internal
-import Data.ByteString.Char8 (head)
+import Data.ByteString.Char8 hiding (foldl')
 import qualified Data.ByteString.Lazy.Char8 as Lazy
 import qualified Data.ByteString.Lazy.Internal as Lazy
 

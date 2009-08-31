@@ -113,16 +113,8 @@ hexalize acc byte
   between b a z              =  b >= c2w a && byte <= c2w z
   place_up b                 =  (0x10 * acc) + fromIntegral b
 
-strict_hex bytes             =  foldl' hexalize 0 piece
- where
-  piece                      =  if pack "0x" `isPrefixOf` bytes
-                                  then  drop 2 bytes
-                                  else  bytes
+strict_hex bytes             =  foldl' hexalize 0 bytes
 
-lazy_hex bytes               =  Lazy.foldlChunks (foldl' hexalize) 0 piece
- where
-  piece                      =  if Lazy.pack "0x" `Lazy.isPrefixOf` bytes
-                                  then  Lazy.drop 2 bytes
-                                  else  bytes
+lazy_hex bytes               =  Lazy.foldlChunks (foldl' hexalize) 0 bytes
 
 

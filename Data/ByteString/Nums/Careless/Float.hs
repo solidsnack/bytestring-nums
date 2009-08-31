@@ -7,8 +7,9 @@
 module Data.ByteString.Nums.Careless.Float where
 
 
-import Prelude hiding (length, splitAt)
-import Data.ByteString.Char8 hiding (inits, elem, last)
+import Data.Char
+import Prelude hiding (splitAt)
+import Data.ByteString.Char8 hiding (length, inits, elem, last)
 import qualified Data.ByteString.Lazy.Char8 as Lazy
 
 
@@ -42,18 +43,20 @@ instance Floatable Lazy.ByteString Rational where
 
 strict_float bytes           =  case findIndices (`elem` ".,") bytes of
   [ ]                       ->  int bytes
-  idx                       ->  hi' + (int lo * (0.1 ^ length lo) * s)
+  idx                       ->  hi' + (int lo * (0.1 ^ length digits) * s)
    where
     (hi, lo)                 =  splitAt (last idx) bytes
     hi'                      =  int hi
     s                        =  signum hi'
+    digits                   =  findIndices isDigit lo
 
 lazy_float bytes             =  case Lazy.findIndices (`elem` ".,") bytes of
   [ ]                       ->  int bytes
-  idx                       ->  hi' + (int lo * (0.1 ^ Lazy.length lo) * s)
+  idx                       ->  hi' + (int lo * (0.1 ^ length digits) * s)
    where
     (hi, lo)                 =  Lazy.splitAt (last idx) bytes
     hi'                      =  int hi
     s                        =  signum hi'
+    digits                   =  Lazy.findIndices isDigit lo
 
 

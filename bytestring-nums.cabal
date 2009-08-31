@@ -1,5 +1,5 @@
 name                          : bytestring-nums
-version                       : 0.1.0
+version                       : 0.2.1
 category                      : Text
 license                       : BSD3
 license-file                  : LICENSE
@@ -18,7 +18,7 @@ extra-source-files            : README
 
 
 library
-  build-depends               : base 
+  build-depends               : base >= 3 && <= 4 
                               , containers
                               , bytestring >= 0.9
   exposed-modules             : Data.ByteString.Nums.Careless
@@ -27,4 +27,48 @@ library
                                 Data.ByteString.Nums.Careless.Float
   extensions                  : MultiParamTypeClasses
                                 TypeSynonymInstances
+  ghc-options                 : -O2 -Wall -funbox-strict-fields
+
+
+executable                      spoj-strict
+  main-is                     : SPOJStrict.hs
+  extensions                  : MultiParamTypeClasses
+                                TypeSynonymInstances
+                                BangPatterns
+  ghc-options                 : -O2 -Wall -funbox-strict-fields
+
+
+executable                      spoj-eugene
+  main-is                     : SPOJEugeneKirpichov.hs
+  extensions                  : MultiParamTypeClasses
+                                TypeSynonymInstances
+                                BangPatterns
+  ghc-options                 : -O2 -Wall -funbox-strict-fields
+
+
+executable                      spoj-obvious
+  main-is                     : SPOJObvious.hs
+  extensions                  : MultiParamTypeClasses
+                                TypeSynonymInstances
+  ghc-options                 : -O2 -Wall -funbox-strict-fields
+
+
+executable                      spoj-mem
+  main-is                     : SPOJMem.hs
+  extensions                  : MultiParamTypeClasses
+                                TypeSynonymInstances
+                                BangPatterns
+                                ScopedTypeVariables
+  ghc-options                 : -O2 -Wall -funbox-strict-fields
+
+
+executable                      spoj-dons
+  main-is                     : SPOJDons.hs
+  extensions                  : MultiParamTypeClasses
+                                TypeSynonymInstances
+                                BangPatterns
+  ghc-options                 : -O2 -Wall -funbox-strict-fields
+
+
+
 
