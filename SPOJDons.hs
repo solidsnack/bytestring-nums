@@ -2,6 +2,45 @@
 {-# LANGUAGE BangPatterns
   #-}
 
+
+ {---------------------------- Forwarded message -----------------------------
+
+From: d...@cse.unsw.edu.au (Donald Bruce Stewart)
+Date: Jun 7 2007, 6:43 pm
+Subject: Fast number parsing with strict bytestrings [Was: Re: Seemingly
+subtle change causes large performance variation]
+To: fa.haskell
+
+[...snip...]
+
+*** Solution 3: 4x faster by processing strict cache chunks
+
+Now the fun part.
+
+The following code is the fastest way I know to process lists of numbers
+(in any language). Its' based on similar code I wrote for the language
+shootout.  The key trick is to use lazy bytestrings *only* as a method
+for filling the cache with newline-aligned chunks of numbers. Once
+you've got that perfectly-sized chunk, walk its lines, and process them.
+This is all done in Haskell, and relies on an understanding of the low
+level details of bytestring optimisations.
+
+The general framework could be reused for any code that needs to process
+a list of numbers in a file, where you care about speed.
+
+It performs as follows:
+
+    $ time ./F < in
+    29359
+    ./F < in  0.24s user 0.01s system 76% cpu 0.327 total
+
+Pretty fast..
+
+[...snip...]
+
+  ---------------------------- Forwarded message -----------------------------}
+
+
 import Data.Char
 import Data.Maybe
 import Data.ByteString hiding (last, uncons)
