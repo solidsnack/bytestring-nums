@@ -1,5 +1,5 @@
 name                          : bytestring-nums
-version                       : 0.2.1
+version                       : 0.2.2
 category                      : Text
 license                       : BSD3
 license-file                  : LICENSE
@@ -38,12 +38,6 @@ executable                      spoj-eugene
                                 BangPatterns
   ghc-options                 : -O2 -Wall -funbox-strict-fields
 
-
-executable                      spoj-obvious
-  main-is                     : SPOJObvious.hs
-  extensions                  : MultiParamTypeClasses
-                                TypeSynonymInstances
-  ghc-options                 : -O2 -Wall -funbox-strict-fields
 
 
 

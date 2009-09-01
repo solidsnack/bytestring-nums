@@ -22,7 +22,8 @@ import qualified Data.ByteString.Lazy.Internal as Lazy
 
 
 {-| Types that can be read from hexadecimal strings. Characters that are not
-    hexadecimal digits are skipped over.
+    hexadecimal digits are skipped over. One pleasant consequence of this is
+    that a leading @0x@ is simply ignored.
  -}
 class (Num n) => Hexable b n where
   hex                       ::  b -> n
