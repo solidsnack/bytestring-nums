@@ -27,13 +27,6 @@ library
                                 Data.ByteString.Nums.Careless.Float
   extensions                  : MultiParamTypeClasses
                                 TypeSynonymInstances
-  ghc-options                 : -O2 -Wall -funbox-strict-fields
-
-
-executable                      spoj-strict
-  main-is                     : SPOJStrict.hs
-  extensions                  : MultiParamTypeClasses
-                                TypeSynonymInstances
                                 BangPatterns
   ghc-options                 : -O2 -Wall -funbox-strict-fields
 
@@ -50,23 +43,6 @@ executable                      spoj-obvious
   main-is                     : SPOJObvious.hs
   extensions                  : MultiParamTypeClasses
                                 TypeSynonymInstances
-  ghc-options                 : -O2 -Wall -funbox-strict-fields
-
-
-executable                      spoj-mem
-  main-is                     : SPOJMem.hs
-  extensions                  : MultiParamTypeClasses
-                                TypeSynonymInstances
-                                BangPatterns
-                                ScopedTypeVariables
-  ghc-options                 : -O2 -Wall -funbox-strict-fields
-
-
-executable                      spoj-dons
-  main-is                     : SPOJDons.hs
-  extensions                  : MultiParamTypeClasses
-                                TypeSynonymInstances
-                                BangPatterns
   ghc-options                 : -O2 -Wall -funbox-strict-fields
 
 

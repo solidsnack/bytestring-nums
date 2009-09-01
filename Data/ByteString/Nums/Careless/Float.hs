@@ -1,6 +1,7 @@
 
 
 {-# LANGUAGE MultiParamTypeClasses
+           , TypeSynonymInstances
   #-}
 
 

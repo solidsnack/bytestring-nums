@@ -1,6 +1,7 @@
 
 
 {-# LANGUAGE MultiParamTypeClasses
+           , TypeSynonymInstances
   #-}
 
 
@@ -88,27 +89,13 @@ instance Hexable Lazy.ByteString Integer where
 
 
 hexalize                    ::  (Num n) => n -> Word8 -> n
-{-# SPECIALIZE INLINE           hexalize :: Word8 -> Word8 -> Word8        #-}
-{-# SPECIALIZE INLINE           hexalize :: Word16 -> Word8 -> Word16      #-}
-{-# SPECIALIZE INLINE           hexalize :: Word32 -> Word8 -> Word32      #-}
-{-# SPECIALIZE INLINE           hexalize :: Word64 -> Word8 -> Word64      #-}
-{-# SPECIALIZE INLINE           hexalize :: Word -> Word8 -> Word          #-}
-{-# SPECIALIZE INLINE           hexalize :: Int8 -> Word8 -> Int8          #-}
-{-# SPECIALIZE INLINE           hexalize :: Int16 -> Word8 -> Int16        #-}
-{-# SPECIALIZE INLINE           hexalize :: Int32 -> Word8 -> Int32        #-}
-{-# SPECIALIZE INLINE           hexalize :: Int64 -> Word8 -> Int64        #-}
-{-# SPECIALIZE INLINE           hexalize :: Int -> Word8 -> Int            #-}
-{-# SPECIALIZE INLINE           hexalize :: Float -> Word8 -> Float        #-}
-{-# SPECIALIZE INLINE           hexalize :: Double -> Word8 -> Double      #-}
-{-# SPECIALIZE INLINE           hexalize :: Rational -> Word8 -> Rational  #-}
-{-# SPECIALIZE INLINE           hexalize :: Integer -> Word8 -> Integer    #-}
 hexalize acc byte
-  | between byte 'a' 'f'     =  place_up (byte + 0x0a - c2w 'a')
-  | between byte 'A' 'F'     =  place_up (byte + 0x0a - c2w 'A')
-  | between byte '0' '9'     =  place_up (byte - c2w '0')
+  | between 'a' 'f'          =  place_up (byte + 0x0a - c2w 'a')
+  | between 'A' 'F'          =  place_up (byte + 0x0a - c2w 'A')
+  | between '0' '9'          =  place_up (byte - c2w '0')
   | otherwise                =  acc
  where
-  between b a z              =  b >= c2w a && byte <= c2w z
+  between a z                =  byte >= c2w a && byte <= c2w z
   place_up b                 =  (0x10 * acc) + fromIntegral b
 
 strict_hex bytes             =  foldl' hexalize 0 bytes
