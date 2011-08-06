@@ -2,6 +2,7 @@
 
 {-# LANGUAGE MultiParamTypeClasses
            , TypeSynonymInstances
+           , FlexibleInstances
   #-}
 
 
