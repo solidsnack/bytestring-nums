@@ -12,7 +12,7 @@ description                   :
   Parse numeric literals from ByteStrings.
 
 
-cabal-version                 : >= 1.2
+cabal-version                 : >= 1.6
 build-type                    : Simple
 extra-source-files            : README
 
