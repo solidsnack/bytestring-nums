@@ -1,5 +1,5 @@
 name                          : bytestring-nums
-version                       : 0.3.3
+version                       : 0.3.4
 category                      : Text
 license                       : BSD3
 license-file                  : LICENSE
@@ -15,6 +15,16 @@ description                   :
 cabal-version                 : >= 1.2
 build-type                    : Simple
 extra-source-files            : README
+
+
+source-repository               head
+  type                        : git
+  location : https://solidsnack@github.com/solidsnack/bytestring-nums.git
+
+
+flag cli
+  description                 : Enable command line tool.
+  default                     : False
 
 
 library
@@ -33,12 +43,12 @@ library
 
 executable                      spoj-eugene
   main-is                     : SPOJEugeneKirpichov.hs
+  if flag(cli)
+    buildable                 : True
+  else
+    buildable                 : False
   extensions                  : MultiParamTypeClasses
                                 TypeSynonymInstances
                                 BangPatterns
   ghc-options                 : -O2 -Wall -funbox-strict-fields
-
-
-
-
 
