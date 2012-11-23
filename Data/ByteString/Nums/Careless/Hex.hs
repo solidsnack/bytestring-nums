@@ -12,9 +12,7 @@ module Data.ByteString.Nums.Careless.Hex where
 import Prelude hiding (head, tail, drop)
 import Data.Word
 import Data.Int
-import Data.Ratio
 import Data.ByteString hiding (head, pack)
-import Data.ByteString.Char8 hiding (foldl')
 import Data.ByteString.Internal
 import qualified Data.ByteString.Lazy.Char8 as Lazy
 import qualified Data.ByteString.Lazy.Internal as Lazy
@@ -100,8 +98,10 @@ hexalize acc byte
   between a z                =  byte >= c2w a && byte <= c2w z
   place_up b                 =  (0x10 * acc) + fromIntegral b
 
+strict_hex                  ::  (Num n) => ByteString -> n
 strict_hex bytes             =  foldl' hexalize 0 bytes
 
+lazy_hex                    ::  (Num n) => Lazy.ByteString -> n
 lazy_hex bytes               =  Lazy.foldlChunks (foldl' hexalize) 0 bytes
 
 

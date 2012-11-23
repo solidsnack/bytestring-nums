@@ -9,7 +9,6 @@
 module Data.ByteString.Nums.Careless.Float where
 
 
-import Data.Char
 import Prelude hiding (break, length, null, drop, tail, head)
 import Data.ByteString hiding (head, break, pack)
 import Data.ByteString.Char8 hiding (inits, elem, last, foldl')
@@ -47,6 +46,7 @@ instance Floatable Lazy.ByteString Rational where
 
 
 
+strict_float                ::  (Fractional f) => ByteString -> f
 strict_float bytes
   | null bytes               =  0
   | head bytes == '-'        =  foldn 0 (tail integer) + nfrac
@@ -66,6 +66,7 @@ strict_float bytes
     | otherwise              =  foldp 0 fractional' * p
 
 
+lazy_float                  ::  (Fractional f) => Lazy.ByteString -> f
 lazy_float bytes
   | Lazy.null bytes          =  0
   | Lazy.head bytes == '-'   =  foldn 0 (Lazy.tail integer) + nfrac
@@ -85,6 +86,7 @@ lazy_float bytes
     | otherwise              =  foldp 0 fractional' * p
 
 
+point                       ::  Char -> Bool
 point c                      =  c == '.' || c == ','
 
 

@@ -12,7 +12,6 @@ module Data.ByteString.Nums.Careless.Int where
 import Prelude hiding (head, tail, null)
 import Data.Word
 import Data.Int
-import Data.Ratio
 import Data.ByteString hiding (head, pack)
 import Data.ByteString.Internal
 import Data.ByteString.Char8 hiding (foldl')
@@ -93,6 +92,7 @@ instance Intable Lazy.ByteString Integer where
 lazy_unsigned               ::  (Num n) => Lazy.ByteString -> n
 lazy_unsigned                =  Lazy.foldlChunks (foldl' positive) 0
 
+lazy_signed                 ::  (Num n) => Lazy.ByteString -> n
 lazy_signed bytes
   | Lazy.null bytes          =  0
   | Lazy.head bytes == '-'   =  fold negative 0 (Lazy.tail bytes)
@@ -105,6 +105,7 @@ lazy_signed bytes
 strict_unsigned             ::  (Num n) => ByteString -> n
 strict_unsigned              =  foldl' positive 0
 
+strict_signed               ::  (Num n) => ByteString -> n
 strict_signed bytes
   | null bytes               =  0
   | head bytes == '-'        =  foldl' negative 0 (tail bytes)
@@ -112,8 +113,10 @@ strict_signed bytes
   | otherwise                =  foldl' positive 0 bytes
 
 
+positive                    ::  (Num n) => n -> Word8 -> n
 positive  acc  byte          =  (acc * 10) + fromIntegral (byte - c2w '0')
 
+negative                    ::  (Num n) => n -> Word8 -> n
 negative  acc  byte          =  (acc * 10) - fromIntegral (byte - c2w '0')
 
 
