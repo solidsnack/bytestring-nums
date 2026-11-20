@@ -9,7 +9,7 @@
 module Data.ByteString.Nums.Careless.Float where
 
 
-import Prelude hiding (break, length, null, drop, tail, head)
+import Prelude hiding (break, length, null, drop, tail, head, foldl')
 import Data.ByteString hiding (head, break, pack)
 import Data.ByteString.Char8 hiding (inits, elem, last, foldl')
 import qualified Data.ByteString.Lazy.Internal as Lazy
