@@ -9,7 +9,7 @@
 module Data.ByteString.Nums.Careless.Hex where
 
 
-import Prelude hiding (head, tail, drop)
+import Prelude hiding (head, tail, drop, foldl')
 import Data.Word
 import Data.Int
 import Data.ByteString hiding (head, pack)
